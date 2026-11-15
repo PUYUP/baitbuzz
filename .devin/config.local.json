@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "Exec(node)",
+      "Exec(pnpm)",
+      "Exec(mkdir)",
+      "Exec(npm install)",
+      "Exec(npm view)",
+      "Exec(npx payload)",
+      "Exec(npm ls)",
+      "Exec(tail)",
+      "Exec(grep)",
+      "Exec(wc)"
+    ]
+  }
+}

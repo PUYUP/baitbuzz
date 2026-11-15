@@ -1,0 +1,384 @@
+:root {
+  --bg: #ffffff;
+  --fg: #171717;
+  --muted: #6b7280;
+  --line: #e5e7eb;
+  --accent: #4d74eb;
+  --code-bg: #f3f4f6;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font-family:
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    'Segoe UI',
+    Roboto,
+    'Helvetica Neue',
+    Arial,
+    sans-serif;
+  font-size: 1rem;
+  line-height: 1.65;
+}
+
+a {
+  color: var(--accent);
+}
+
+.wrap {
+  max-width: 44rem;
+  margin: 0 auto;
+  padding: 0 1.25rem;
+}
+
+header.site {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.75rem 0 1.25rem;
+  border-bottom: 1px solid var(--line);
+}
+
+header.site .logo {
+  font-weight: 400;
+  font-size: 2.55rem;
+  letter-spacing: -0.02em;
+  color: var(--fg);
+  text-decoration: none;
+}
+
+header.site .logo strong {
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
+}
+
+header.site nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  row-gap: 0.35rem;
+}
+
+header.site nav a {
+  color: var(--accent);
+  text-decoration: none;
+  font-size: 0.9rem;
+  margin-left: 1.25rem;
+}
+
+header.site nav a:hover {
+  text-decoration: underline;
+}
+
+main {
+  padding: 2rem 0 4rem;
+}
+
+footer.site {
+  border-top: 1px solid var(--line);
+  padding: 1.5rem 0 2.5rem;
+  color: var(--muted);
+  font-size: 0.85rem;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+/* Article list */
+article.card {
+  padding: 1.5rem 0;
+  border-bottom: 1px solid var(--line);
+}
+
+article.card:last-child {
+  border-bottom: none;
+}
+
+article.card h2 {
+  margin: 0 0 0.4rem;
+  font-size: 1.3rem;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+}
+
+article.card h2 a {
+  color: var(--fg);
+  text-decoration: none;
+}
+
+article.card h2 a:hover {
+  text-decoration: underline;
+}
+
+article.card .excerpt {
+  color: var(--muted);
+  margin: 0 0 0.6rem;
+  font-size: 0.95rem;
+}
+
+.meta {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  font-size: 0.82rem;
+  color: var(--muted);
+}
+
+.meta a.tag {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.meta a.tag:hover {
+  color: var(--accent);
+  text-decoration: underline;
+}
+
+/* Article page */
+article.full h1 {
+  font-size: 1.9rem;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+  margin: 0 0 0.75rem;
+}
+
+article.full .hero {
+  width: 100%;
+  border-radius: 8px;
+  margin: 1.25rem 0;
+}
+
+/* Rendered markdown */
+.prose {
+  font-size: 1.02rem;
+}
+
+.prose h2,
+.prose h3 {
+  margin-top: 2rem;
+  letter-spacing: -0.01em;
+}
+
+.prose p {
+  margin: 1rem 0;
+}
+
+.prose a {
+  color: var(--accent);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.prose ul,
+.prose ol {
+  padding-left: 1.4rem;
+}
+
+.prose li {
+  margin: 0.3rem 0;
+}
+
+.prose blockquote {
+  border-left: 3px solid var(--line);
+  margin: 1.25rem 0;
+  padding: 0.25rem 1rem;
+  color: var(--muted);
+}
+
+.prose code {
+  background: var(--code-bg);
+  padding: 0.15em 0.35em;
+  border-radius: 4px;
+  font-size: 0.88em;
+}
+
+.prose pre {
+  background: var(--code-bg);
+  padding: 1rem;
+  border-radius: 8px;
+  overflow-x: auto;
+}
+
+.prose pre code {
+  background: none;
+  padding: 0;
+}
+
+.prose img {
+  max-width: 100%;
+  border-radius: 8px;
+}
+
+.prose hr {
+  border: none;
+  border-top: 1px solid var(--line);
+  margin: 2rem 0;
+}
+
+/* Breadcrumbs — vertical tree style */
+.breadcrumbs {
+  margin-bottom: 1.25rem;
+}
+
+.breadcrumbs ol {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  font-size: 0.85rem;
+}
+
+.breadcrumbs li {
+  position: relative;
+  padding: 0.15rem 0 0.15rem 1.4rem;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+/* vertical trunk line — runs through every level, starting at the root's mid-height */
+.breadcrumbs li:not(:only-child)::before {
+  content: '';
+  position: absolute;
+  left: 0.45rem;
+  top: 0;
+  bottom: 0;
+  border-left: 1px solid var(--line);
+}
+
+/* root item: trunk starts at its own mid-height, not above the text */
+.breadcrumbs li:first-child:not(:only-child)::before {
+  top: 0.85rem;
+}
+
+/* last item: trunk stops at the midpoint (└ corner) */
+.breadcrumbs li:last-child:not(:first-child)::before {
+  bottom: auto;
+  height: 0.85rem;
+}
+
+/* horizontal connector stub */
+.breadcrumbs li:not(:first-child)::after {
+  content: '';
+  position: absolute;
+  left: 0.45rem;
+  top: 0.85rem;
+  width: 0.6rem;
+  border-top: 1px solid var(--line);
+}
+
+.breadcrumbs a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.breadcrumbs a:hover {
+  text-decoration: underline;
+}
+
+.breadcrumbs [aria-current='page'] {
+  color: var(--fg);
+  font-weight: 600;
+}
+
+/* Sources */
+.sources {
+  margin-top: 3rem;
+  border-top: 1px solid var(--line);
+  padding-top: 1.25rem;
+}
+
+.sources h2 {
+  font-size: 0.95rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--muted);
+  margin: 0 0 0.75rem;
+}
+
+.sources ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sources li {
+  padding: 0.75rem 0;
+  border-bottom: 1px solid var(--line);
+  font-size: 0.9rem;
+}
+
+.sources li:last-child {
+  border-bottom: none;
+}
+
+.sources .src-author {
+  color: var(--muted);
+  font-size: 0.8rem;
+}
+
+.sources .src-platform {
+  display: inline-block;
+  margin-right: 0.35rem;
+  padding: 0.05rem 0.4rem;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.sources .src-text {
+  display: block;
+  margin-top: 0.2rem;
+  color: var(--fg);
+  text-decoration: none;
+}
+
+.sources a.src-text {
+  color: var(--accent);
+}
+
+.sources a.src-text:hover {
+  text-decoration: underline;
+}
+
+/* Topics index */
+.topics-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+
+.topics-grid a {
+  display: inline-block;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 0.35rem 0.9rem;
+  color: var(--accent);
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+.topics-grid a:hover {
+  border-color: var(--fg);
+}
+
+.empty {
+  color: var(--muted);
+  padding: 3rem 0;
+  text-align: center;
+}

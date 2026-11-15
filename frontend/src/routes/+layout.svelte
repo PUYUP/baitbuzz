@@ -1,0 +1,34 @@
+<script lang="ts">
+  import '../app.css'
+  import { site } from '#lib/site'
+  import type { Snippet } from 'svelte'
+  import type { LayoutData } from './$types'
+
+  let { children, data }: { children: Snippet; data: LayoutData } = $props()
+</script>
+
+<div class="wrap">
+  <header class="site">
+    <a class="logo" href="/">b<strong>ai</strong>tbuzz</a>
+    <nav>
+      {#each data.topTopics as topic (topic.slug)}
+        <a href="/topics/{topic.slug}">#{topic.slug}</a>
+      {/each}
+      <a href="/topics">+ more</a>
+    </nav>
+  </header>
+
+  <main>
+    {@render children()}
+  </main>
+
+  <footer class="site">
+    <span>{site.name} — {site.tagline}</span>
+    <span>
+      © {new Date().getFullYear()}
+      {#each data.pages as page (page.slug)}
+        · <a href="/{page.slug}">{page.title}</a>
+      {/each}
+    </span>
+  </footer>
+</div>
