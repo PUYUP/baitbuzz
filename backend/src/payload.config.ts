@@ -8,6 +8,7 @@ import sharp from 'sharp'
 import { buildConfig } from 'payload'
 
 import { Articles } from './collections/Articles'
+import { ingestRawPosts } from './endpoints/ingestRawPosts'
 import { Media } from './collections/Media'
 import { Pages } from './collections/Pages'
 import { RawPosts } from './collections/RawPosts'
@@ -25,6 +26,7 @@ export default buildConfig({
     },
   },
   collections: [Users, Topics, RawPosts, Articles, Pages, Media],
+  endpoints: [ingestRawPosts],
   cors: [
     'http://localhost:5173',
     'https://baitbuzz.com',

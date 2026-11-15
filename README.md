@@ -32,6 +32,22 @@ cp .env.example .env
 npm run dev
 ```
 
+## Ingest API (Chrome extension)
+
+`POST /api/ingest/raw-posts` — bulk-insert raw posts without admin login.
+
+- **Auth**: `Authorization: Bearer <INGEST_API_KEY>` or `x-api-key: <key>` header (`INGEST_API_KEY` env var; endpoint disabled when unset)
+- **Body**: single post object, an array, or `{ "posts": [...] }` (max 100 per request)
+- **Fields**: `platform` (`x`/`threads`/`facebook`/`linkedin`/`other`, default `x`), `externalId` (optional, dedupes), `authorHandle`, `authorName`, `text` (required), `sourceUrl` (required), `postedAt` (ISO, defaults to now), `isReply`, `parentId`, `synthesisStatus` (default `pending`), `raw` (original payload JSON)
+- **Response**: `{ "created": n, "skipped": n, "errors": [{ "index": n, "error": "..." }] }` — posts whose `externalId` already exists are skipped
+
+```bash
+curl -X POST https://cms.baitbuzz.com/api/ingest/raw-posts \
+  -H "Authorization: Bearer $INGEST_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{"posts":[{"platform":"x","externalId":"123","text":"...","sourceUrl":"https://x.com/..."}]}'
+```
+
 ## Content flow
 
 1. Raw social posts are added to the **Raw Posts** collection (via admin UI or API).
