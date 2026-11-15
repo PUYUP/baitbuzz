@@ -1,0 +1,20 @@
+import type { Handle } from '@sveltejs/kit/hooks'
+
+export const handle: Handle = async ({ event, resolve }) => {
+  const response = await resolve(event)
+  const contentType = response.headers.get('content-type')
+  if (
+    contentType &&
+    contentType.startsWith('text/') &&
+    !contentType.includes('charset')
+  ) {
+    const headers = new Headers(response.headers)
+    headers.set('content-type', `${contentType}; charset=utf-8`)
+    return new Response(response.body, {
+      status: response.status,
+      statusText: response.statusText,
+      headers
+    })
+  }
+  return response
+}
