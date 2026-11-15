@@ -3,7 +3,7 @@
   --fg: #171717;
   --muted: #6b7280;
   --line: #e5e7eb;
-  --accent: #4d74eb;
+  --accent: #0000ee;
   --code-bg: #f3f4f6;
 }
 
@@ -60,17 +60,17 @@ header.site .logo {
 
 header.site .logo strong {
   font-weight: 700;
-  color: var(--accent);
+  color: #8b5cf6;
   text-decoration: underline;
-  text-decoration-color: var(--accent);
+  text-decoration-color: #8b5cf6;
   text-underline-offset: 0.18em;
 }
 
 .brand strong {
   font-weight: 700;
-  color: var(--accent);
+  color: #8b5cf6;
   text-decoration: underline;
-  text-decoration-color: var(--accent);
+  text-decoration-color: #8b5cf6;
   text-underline-offset: 0.18em;
 }
 
