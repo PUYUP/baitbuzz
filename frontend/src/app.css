@@ -156,6 +156,14 @@ article.full h1 {
   margin: 0 0 0.75rem;
 }
 
+article.full .excerpt {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 1.3rem;
+  line-height: 1.5;
+  color: var(--muted);
+  margin: 0 0 1rem;
+}
+
 article.full .hero {
   width: 100%;
   border-radius: 8px;

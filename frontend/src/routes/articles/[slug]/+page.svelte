@@ -92,6 +92,9 @@
 <article class="full">
   <Breadcrumbs items={crumbs} />
   <h1>{article.title}</h1>
+  {#if article.excerpt}
+    <p class="excerpt">{article.excerpt}</p>
+  {/if}
   <div class="meta">
     <time datetime={article.publishedAt ?? undefined}>{formatDate(article.publishedAt)}</time>
     <span>· {readingTime(article.body)} min read</span>
