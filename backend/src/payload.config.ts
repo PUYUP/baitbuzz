@@ -40,11 +40,15 @@ export default buildConfig({
       ? postgresAdapter({
           pool: {
             connectionString: process.env.DATABASE_URL,
-            // Serverless-safe: Supabase session pooler has a small client
-            // limit (default pool_size 15). Keep per-instance connections low.
-            max: Number(process.env.DATABASE_POOL_MAX ?? 1),
+            // Transaction pooler (6543) multiplexes clients, so a normal pool
+            // size is fine. Session pooler (5432) has a tiny client limit —
+            // keep it minimal there to avoid EMAXCONNSESSION.
+            max: Number(
+              process.env.DATABASE_POOL_MAX ??
+                ((process.env.DATABASE_URL ?? '').includes(':6543') ? 10 : 1)
+            ),
             idleTimeoutMillis: 10_000,
-            connectionTimeoutMillis: 10_000,
+            connectionTimeoutMillis: 30_000,
           },
           migrationDir: path.resolve(dirname, 'migrations/postgres'),
         })
