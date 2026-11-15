@@ -29,6 +29,7 @@
       {#each data.pages as page (page.slug)}
         · <a href="/{page.slug}">{page.title}</a>
       {/each}
+      · Part of <a href="https://a09f.com" target="_blank" rel="noopener noreferrer">a09f</a>
     </span>
   </footer>
 </div>
