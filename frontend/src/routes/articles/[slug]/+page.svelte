@@ -1,9 +1,11 @@
 <script lang="ts">
+  import { onMount } from 'svelte'
   import { marked } from 'marked'
   import Breadcrumbs from '#lib/Breadcrumbs.svelte'
   import { breadcrumbJsonLd, type Crumb } from '#lib/breadcrumb'
   import type { RawPost } from '#lib/types'
   import { articleTopics, formatDate, readingTime } from '#lib/format'
+  import { trackArticleView } from '#lib/api'
   import { site } from '#lib/site'
   import { absoluteUrl, jsonLdScript, metaDescription } from '#lib/seo'
   import type { PageData } from './$types'
@@ -89,6 +91,12 @@
   ])
 
   const breadcrumbLd = $derived(breadcrumbJsonLd(crumbs))
+
+  const viewCount = $derived(data.viewStats?.total ?? null)
+
+  onMount(() => {
+    trackArticleView(article.slug)
+  })
 </script>
 
 <svelte:head>
@@ -127,6 +135,9 @@
   <div class="meta">
     <time datetime={article.publishedAt ?? undefined}>{formatDate(article.publishedAt)}</time>
     <span>· {readingTime(article.body)} min read</span>
+    {#if viewCount !== null}
+      <span>· {viewCount} {viewCount === 1 ? 'view' : 'views'}</span>
+    {/if}
     {#each topics as topic (topic.id)}
       <a class="tag" href="/topics/{topic.slug}">#{topic.slug}</a>
     {/each}

@@ -7,7 +7,9 @@ import { lexicalEditor } from '@payloadcms/richtext-lexical'
 import sharp from 'sharp'
 import { buildConfig } from 'payload'
 
+import { ArticleViews } from './collections/ArticleViews'
 import { Articles } from './collections/Articles'
+import { articleViewStats, trackArticleView } from './endpoints/articleViews'
 import { ingestRawPosts } from './endpoints/ingestRawPosts'
 import { Media } from './collections/Media'
 import { Pages } from './collections/Pages'
@@ -25,8 +27,8 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
   },
-  collections: [Users, Topics, RawPosts, Articles, Pages, Media],
-  endpoints: [ingestRawPosts],
+  collections: [Users, Topics, RawPosts, Articles, Pages, Media, ArticleViews],
+  endpoints: [ingestRawPosts, trackArticleView, articleViewStats],
   cors: [
     'http://localhost:5173',
     'https://baitbuzz.com',

@@ -1,5 +1,5 @@
 import { error } from '@sveltejs/kit'
-import { getArticleBySlug } from '#lib/api'
+import { getArticleBySlug, getArticleViewStats } from '#lib/api'
 import type { PageServerLoad } from './$types'
 
 export const load: PageServerLoad = async ({ params }) => {
@@ -7,5 +7,6 @@ export const load: PageServerLoad = async ({ params }) => {
   if (!article) {
     error(404, 'Article not found')
   }
-  return { article }
+  const viewStats = await getArticleViewStats(article.slug).catch(() => null)
+  return { article, viewStats }
 }

@@ -98,6 +98,25 @@ export async function getTopTopics(limit = 5): Promise<Topic[]> {
     .map(({ topic }) => topic)
 }
 
+export interface ArticleViewStats {
+  article: string
+  days: number
+  total: number
+  daily: { date: string; count: number }[]
+}
+
+export function getArticleViewStats(slug: string, days = 30) {
+  return apiGet<ArticleViewStats>(`/views/stats?article=${encodeURIComponent(slug)}&days=${days}`)
+}
+
+export function trackArticleView(slug: string) {
+  return fetch(`${API_URL}/views/track`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ slug })
+  }).catch(() => {})
+}
+
 export function getPages() {
   return apiGet<PayloadList<Page>>('/pages?where[status][equals]=published&sort=title&limit=100&depth=0')
 }
