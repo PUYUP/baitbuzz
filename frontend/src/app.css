@@ -60,13 +60,17 @@ header.site .logo {
 
 header.site .logo strong {
   font-weight: 700;
+  color: var(--accent);
   text-decoration: underline;
+  text-decoration-color: var(--accent);
   text-underline-offset: 0.18em;
 }
 
 .brand strong {
   font-weight: 700;
+  color: var(--accent);
   text-decoration: underline;
+  text-decoration-color: var(--accent);
   text-underline-offset: 0.18em;
 }
 
