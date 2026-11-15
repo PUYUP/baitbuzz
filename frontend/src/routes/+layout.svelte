@@ -1,5 +1,6 @@
 <script lang="ts">
   import '../app.css'
+  import Brand from '#lib/Brand.svelte'
   import { site } from '#lib/site'
   import type { Snippet } from 'svelte'
   import type { LayoutData } from './$types'
@@ -23,7 +24,7 @@
   </main>
 
   <footer class="site">
-    <span>{site.name} — {site.tagline}</span>
+    <span><Brand /> — {site.tagline}</span>
     <span>
       © {new Date().getFullYear()}
       {#each data.pages as page (page.slug)}

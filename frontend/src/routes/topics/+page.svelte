@@ -8,7 +8,7 @@
   let { data }: { data: PageData } = $props()
 
   const title = `Topics — ${site.name}`
-  const description = 'Explore topics about AI and technology on BaitBuzz.'
+  const description = `Explore topics about AI and technology on ${site.name}.`
   const canonical = `${site.url}/topics`
 
   const crumbs: Crumb[] = [

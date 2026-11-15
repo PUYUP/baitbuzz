@@ -64,6 +64,12 @@ header.site .logo strong {
   text-underline-offset: 0.18em;
 }
 
+.brand strong {
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
+}
+
 header.site nav {
   display: flex;
   flex-wrap: wrap;
