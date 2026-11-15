@@ -3,14 +3,24 @@ import type { Article, Page, PayloadList, Topic } from './types'
 
 const API_URL = PUBLIC_PAYLOAD_API.replace(/\/$/, '')
 
+// Short-lived in-memory cache per lambda instance — public read-only
+// content doesn't need a fresh API call on every page view.
+const CACHE_TTL_MS = 60_000
+const cache = new Map<string, { data: unknown; expires: number }>()
+
 async function apiGet<T>(path: string): Promise<T> {
+  const hit = cache.get(path)
+  if (hit && hit.expires > Date.now()) return hit.data as T
+
   const res = await fetch(`${API_URL}${path}`, {
     headers: { Accept: 'application/json' }
   })
   if (!res.ok) {
     throw new Error(`Payload API error ${res.status} for ${path}`)
   }
-  return res.json()
+  const json = (await res.json()) as T
+  cache.set(path, { data: json, expires: Date.now() + CACHE_TTL_MS })
+  return json
 }
 
 export function getArticles(opts: { limit?: number; topicSlug?: string } = {}) {
