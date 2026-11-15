@@ -31,11 +31,13 @@ export default buildConfig({
     'http://localhost:5173',
     'https://baitbuzz.com',
     'https://www.baitbuzz.com',
+    'https://cms.baitbuzz.com',
   ],
   csrf: [
     'http://localhost:5173',
     'https://baitbuzz.com',
     'https://www.baitbuzz.com',
+    'https://cms.baitbuzz.com',
   ],
   db:
     (process.env.DATABASE_URL || '').startsWith('postgres')
@@ -62,6 +64,7 @@ export default buildConfig({
         }),
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
+  serverURL: process.env.PAYLOAD_PUBLIC_SERVER_URL || 'http://localhost:3000',
   sharp,
   typescript: {
     outputFile: path.resolve(dirname, 'payload-types.ts'),
