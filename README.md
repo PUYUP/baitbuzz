@@ -79,7 +79,8 @@ Deploy as **two separate Vercel projects** (monorepo — set *Root Directory* in
 1. New Project → import repo → **Root Directory: `frontend`** (framework: SvelteKit, auto-detected).
 2. Environment variables:
    - `PUBLIC_PAYLOAD_API` — `https://cms.baitbuzz.com/api` (or `https://<backend>.vercel.app/api`)
-   - `PUBLIC_SITE_URL` — `https://baitbuzz.com` (or `https://<frontend>.vercel.app`)
+   - `PUBLIC_SITE_URL` — `https://www.baitbuzz.com` (or `https://<frontend>.vercel.app`)
+   - `PUBLIC_GA_ID` — optional Google Analytics 4 measurement ID (`G-XXXXXXX`); leave empty to disable
 3. Custom domain (optional): `baitbuzz.com` + `www.baitbuzz.com` → this project.
 3. `vite.config.ts` automatically uses `@sveltejs/adapter-vercel` when `VERCEL=1` (set by Vercel at build time) and `@sveltejs/adapter-node` for local production builds.
 

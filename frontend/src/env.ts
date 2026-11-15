@@ -10,5 +10,10 @@ export const variables = defineEnvVars({
     public: true,
     schema: (value) => value || 'http://localhost:5173',
     description: 'Public base URL of this site (canonical, OG, sitemap, RSS)'
+  },
+  PUBLIC_GA_ID: {
+    public: true,
+    schema: (value) => value || '',
+    description: 'Google Analytics 4 measurement ID (G-XXXXXXX). Empty disables GA.'
   }
 })

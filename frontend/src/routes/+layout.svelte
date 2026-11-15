@@ -1,5 +1,6 @@
 <script lang="ts">
   import '../app.css'
+  import { PUBLIC_GA_ID } from '$app/env/public'
   import Brand from '#lib/Brand.svelte'
   import { site } from '#lib/site'
   import type { Snippet } from 'svelte'
@@ -7,6 +8,13 @@
 
   let { children, data }: { children: Snippet; data: LayoutData } = $props()
 </script>
+
+<svelte:head>
+  {#if PUBLIC_GA_ID}
+    {@html `<script async src="https://www.googletagmanager.com/gtag/js?id=${PUBLIC_GA_ID}"></script>`}
+    {@html `<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','${PUBLIC_GA_ID}');</script>`}
+  {/if}
+</svelte:head>
 
 <div class="wrap">
   <header class="site">
