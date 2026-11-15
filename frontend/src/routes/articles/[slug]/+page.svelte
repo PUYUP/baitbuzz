@@ -36,6 +36,32 @@
   const platformLabel = (p?: string | null) =>
     p === 'x' ? 'X' : p === 'threads' ? 'Threads' : p === 'facebook' ? 'Facebook' : p === 'linkedin' ? 'LinkedIn' : p === 'other' ? 'Web' : 'Web'
 
+  const shareLinks = $derived([
+    {
+      name: 'X',
+      href: `https://twitter.com/intent/tweet?text=${encodeURIComponent(title)}&url=${encodeURIComponent(canonical)}`
+    },
+    {
+      name: 'LinkedIn',
+      href: `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(canonical)}`
+    },
+    {
+      name: 'Facebook',
+      href: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(canonical)}`
+    }
+  ])
+
+  let copied = $state(false)
+  async function copyLink() {
+    try {
+      await navigator.clipboard.writeText(canonical)
+      copied = true
+      setTimeout(() => (copied = false), 2000)
+    } catch {
+      // clipboard unavailable
+    }
+  }
+
   const jsonLd = $derived({
     '@context': 'https://schema.org',
     '@type': 'Article',
@@ -101,6 +127,16 @@
     {#each topics as topic (topic.id)}
       <a class="tag" href="/topics/{topic.slug}">#{topic.slug}</a>
     {/each}
+  </div>
+
+  <div class="share" aria-label="Share this article">
+    <span class="share-label">Share:</span>
+    {#each shareLinks as link (link.name)}
+      <a class="share-link" href={link.href} target="_blank" rel="noopener noreferrer">{link.name}</a>
+    {/each}
+    <button class="share-link share-copy" type="button" onclick={copyLink}>
+      {copied ? 'Copied' : 'Copy link'}
+    </button>
   </div>
 
   {#if heroUrl}
