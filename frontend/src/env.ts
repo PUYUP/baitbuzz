@@ -15,5 +15,9 @@ export const variables = defineEnvVars({
     public: true,
     schema: (value) => value || '',
     description: 'Google Analytics 4 measurement ID (G-XXXXXXX). Empty disables GA.'
+  },
+  REVALIDATE_SECRET: {
+    schema: (value) => value || '',
+    description: 'Shared secret for POST /api/revalidate cache busting. Must match the backend value.'
   }
 })

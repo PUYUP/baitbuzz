@@ -23,6 +23,10 @@ async function apiGet<T>(path: string): Promise<T> {
   return json
 }
 
+export function clearApiCache() {
+  cache.clear()
+}
+
 export function getArticles(opts: { limit?: number; topicSlug?: string } = {}) {
   const { limit = 30, topicSlug } = opts
   const conditions: string[] = []

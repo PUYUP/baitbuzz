@@ -1,4 +1,5 @@
 import type { CollectionBeforeChangeHook, CollectionConfig } from 'payload'
+import { revalidateFrontend, revalidateFrontendDelete } from '../hooks/revalidateFrontend'
 
 const formatSlug =
   (fieldToUse = 'name'): CollectionBeforeChangeHook =>
@@ -61,5 +62,7 @@ export const Topics: CollectionConfig = {
   ],
   hooks: {
     beforeChange: [formatSlug('name')],
+    afterChange: [revalidateFrontend],
+    afterDelete: [revalidateFrontendDelete],
   },
 }

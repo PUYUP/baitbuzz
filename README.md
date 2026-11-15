@@ -65,7 +65,11 @@ Deploy as **two separate Vercel projects** (monorepo — set *Root Directory* in
 1. New Project → import repo → **Root Directory: `backend`** (framework: Next.js, auto-detected).
 2. Environment variables:
    - `PAYLOAD_SECRET` — long random string
-   - `DATABASE_URL` — Supabase **session pooler** string (port `5432`, not `6543`)
+   - `DATABASE_URL` — Supabase **transaction pooler** string (port `6543`)
+   - `PAYLOAD_PUBLIC_SERVER_URL` — `https://cms.baitbuzz.com`
+   - `INGEST_API_KEY` — shared secret for `POST /api/ingest/raw-posts` (Chrome extension); leave empty to disable
+   - `FRONTEND_REVALIDATE_URL` — `https://www.baitbuzz.com/api/revalidate`
+   - `REVALIDATE_SECRET` — shared secret, must match the frontend value
 3. Custom domain (optional but recommended): `cms.baitbuzz.com` → this project. Admin panel: `https://cms.baitbuzz.com/admin`
 4. After the first deploy, run migrations against the production database once (from your machine):
 
@@ -81,6 +85,7 @@ Deploy as **two separate Vercel projects** (monorepo — set *Root Directory* in
    - `PUBLIC_PAYLOAD_API` — `https://cms.baitbuzz.com/api` (or `https://<backend>.vercel.app/api`)
    - `PUBLIC_SITE_URL` — `https://www.baitbuzz.com` (or `https://<frontend>.vercel.app`)
    - `PUBLIC_GA_ID` — optional Google Analytics 4 measurement ID (`G-XXXXXXX`); leave empty to disable
+   - `REVALIDATE_SECRET` — shared secret for `POST /api/revalidate`; must match the backend value. The frontend caches Payload API responses for 60s; the backend calls this endpoint after content edits to bust the cache immediately.
 3. Custom domain (optional): `baitbuzz.com` + `www.baitbuzz.com` → this project.
 3. `vite.config.ts` automatically uses `@sveltejs/adapter-vercel` when `VERCEL=1` (set by Vercel at build time) and `@sveltejs/adapter-node` for local production builds.
 
