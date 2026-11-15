@@ -60,7 +60,7 @@ header.site .logo {
 
 header.site .logo strong {
   font-weight: 700;
-  color: var(--fg);
+  color: #2e2e2e;
   text-decoration: underline;
   text-underline-offset: 0.18em;
 }
@@ -71,7 +71,7 @@ header.site .logo strong {
 
 .brand strong {
   font-weight: 700;
-  color: var(--fg);
+  color: #2e2e2e;
   text-decoration: underline;
   text-underline-offset: 0.18em;
 }
