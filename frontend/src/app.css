@@ -54,23 +54,25 @@ header.site .logo {
   font-weight: 400;
   font-size: 2.55rem;
   letter-spacing: -0.02em;
-  color: var(--fg);
+  color: var(--muted);
   text-decoration: none;
 }
 
 header.site .logo strong {
   font-weight: 700;
-  color: #8b5cf6;
+  color: var(--fg);
   text-decoration: underline;
-  text-decoration-color: #8b5cf6;
   text-underline-offset: 0.18em;
+}
+
+.brand {
+  color: var(--muted);
 }
 
 .brand strong {
   font-weight: 700;
-  color: #8b5cf6;
+  color: var(--fg);
   text-decoration: underline;
-  text-decoration-color: #8b5cf6;
   text-underline-offset: 0.18em;
 }
 
