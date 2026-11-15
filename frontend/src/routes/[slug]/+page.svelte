@@ -4,14 +4,16 @@
   import { breadcrumbJsonLd, type Crumb } from '#lib/breadcrumb'
   import { formatDate } from '#lib/format'
   import { site } from '#lib/site'
-  import { absoluteUrl, jsonLdScript } from '#lib/seo'
+  import { absoluteUrl, jsonLdScript, metaDescription } from '#lib/seo'
   import type { PageData } from './$types'
 
   let { data }: { data: PageData } = $props()
   const page = $derived(data.page)
 
   const html = $derived(marked.parse(page.body ?? '', { async: false }) as string)
-  const description = $derived(page.metaDescription || page.excerpt || page.title)
+  const description = $derived(
+    metaDescription(page.metaDescription || page.excerpt || page.title)
+  )
   const title = $derived(page.metaTitle || page.title)
   const fullTitle = $derived(
     title.toLowerCase().includes(site.name.toLowerCase()) ? title : `${title} — ${site.name}`

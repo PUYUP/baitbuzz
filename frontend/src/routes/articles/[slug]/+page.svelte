@@ -5,7 +5,7 @@
   import type { RawPost } from '#lib/types'
   import { articleTopics, formatDate, readingTime } from '#lib/format'
   import { site } from '#lib/site'
-  import { absoluteUrl, jsonLdScript } from '#lib/seo'
+  import { absoluteUrl, jsonLdScript, metaDescription } from '#lib/seo'
   import type { PageData } from './$types'
 
   let { data }: { data: PageData } = $props()
@@ -14,7 +14,7 @@
   const topics = $derived(articleTopics(article))
   const html = $derived(marked.parse(article.body ?? '', { async: false }) as string)
   const description = $derived(
-    article.metaDescription || article.excerpt || article.title
+    metaDescription(article.metaDescription || article.excerpt || article.title)
   )
   const title = $derived(
     article.metaTitle || article.title
