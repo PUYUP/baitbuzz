@@ -5,6 +5,7 @@ import { vitePreprocess } from '@sveltejs/vite-plugin-svelte'
 import { defineConfig } from 'vite'
 
 // adapter-vercel on Vercel, adapter-node everywhere else (local prod builds)
+declare const process: { env: Record<string, string | undefined> }
 const adapter = process.env.VERCEL ? adapterVercel() : adapterNode()
 
 export default defineConfig({
