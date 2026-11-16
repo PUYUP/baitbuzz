@@ -395,6 +395,9 @@ article.card .excerpt {
 }
 
 .latest-articles h2 {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
   font-size: 0.95rem;
   text-transform: uppercase;
   letter-spacing: 0.05em;
