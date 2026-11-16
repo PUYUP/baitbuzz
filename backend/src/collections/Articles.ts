@@ -99,6 +99,9 @@ export const Articles: CollectionConfig = {
       admin: {
         position: 'sidebar',
         description: 'Feature this article in the homepage headline section.',
+        components: {
+          Cell: '@/components/HeadlineCell#HeadlineCell'
+        }
       },
     },
     {
