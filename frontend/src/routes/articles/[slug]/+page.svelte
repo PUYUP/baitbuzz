@@ -128,10 +128,27 @@
 
 <article class="full">
   <Breadcrumbs items={crumbs} />
-  <h1>{article.title}</h1>
-  {#if article.excerpt}
-    <p class="excerpt">{article.excerpt}</p>
-  {/if}
+  <div class="article-head">
+    <div class="article-head-main">
+      <h1>{article.title}</h1>
+      {#if article.excerpt}
+        <p class="excerpt">{article.excerpt}</p>
+      {/if}
+    </div>
+    {#if data.latest.length > 0}
+      <aside class="latest-articles" aria-label="Latest articles">
+        <h2>Latest articles</h2>
+        <ul>
+          {#each data.latest as item (item.id)}
+            <li>
+              <a class="latest-title" href="/articles/{item.slug}">{item.title}</a>
+              <time class="latest-date" datetime={item.publishedAt ?? undefined}>{formatDate(item.publishedAt)}</time>
+            </li>
+          {/each}
+        </ul>
+      </aside>
+    {/if}
+  </div>
   <div class="meta">
     <time datetime={article.publishedAt ?? undefined}>{formatDate(article.publishedAt)}</time>
     <span>· {readingTime(article.body)} min read</span>

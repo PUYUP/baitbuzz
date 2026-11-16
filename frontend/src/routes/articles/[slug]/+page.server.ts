@@ -54,5 +54,6 @@ export const load: PageServerLoad = async ({ params }) => {
     getArticles({ limit: 50 })
   ])
   const related = pickRelated(article, all.docs)
-  return { article, viewStats, related }
+  const latest = all.docs.filter((d) => d.id !== article.id).slice(0, 3)
+  return { article, viewStats, related, latest }
 }
