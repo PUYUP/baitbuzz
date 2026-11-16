@@ -380,6 +380,20 @@ article.card .excerpt {
   }
 }
 
+.latest-articles {
+  border-left: 1px solid var(--line);
+  padding-left: 2rem;
+}
+
+@media (max-width: 860px) {
+  .latest-articles {
+    border-left: none;
+    border-top: 1px solid var(--line);
+    padding-left: 0;
+    padding-top: 1.25rem;
+  }
+}
+
 .latest-articles h2 {
   font-size: 0.95rem;
   text-transform: uppercase;
