@@ -7,9 +7,10 @@
 
   let { data }: { data: PageData } = $props()
 
-  const lead = $derived(data.articles[0] ?? null)
-  const secondary = $derived(data.articles.slice(1, 3))
-  const rest = $derived(data.articles.slice(3))
+  const lead = $derived(data.headline[0] ?? null)
+  const secondary = $derived(data.headline.slice(1))
+  const headlineIds = $derived(new Set(data.headline.map((a) => a.id)))
+  const rest = $derived(data.articles.filter((a) => !headlineIds.has(a.id)))
 
   const title = `${site.name} — ${site.tagline}`
 
@@ -38,11 +39,12 @@
   {@html `<script type="application/ld+json">${jsonLdScript(jsonLd)}</script>`}
 </svelte:head>
 
-{#if data.articles.length === 0}
+{#if data.articles.length === 0 && data.headline.length === 0}
   <p class="empty">No articles published yet.</p>
 {:else}
-  <section class="top-stories" aria-label="Top stories">
-    <h2 class="section-label">Top stories</h2>
+  {#if data.headline.length > 0}
+    <section class="top-stories" aria-label="Headlines">
+    <h2 class="section-label">Headlines</h2>
 
     {#if lead}
       <article class="lead-story">
@@ -69,7 +71,8 @@
         {/each}
       </ol>
     {/if}
-  </section>
+    </section>
+  {/if}
 
   {#each rest as article (article.id)}
     <ArticleCard {article} />

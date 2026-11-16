@@ -200,6 +200,10 @@ export interface Article {
    * Raw posts this article was synthesized from.
    */
   sources?: (number | RawPost)[] | null;
+  /**
+   * Feature this article in the homepage headline section.
+   */
+  headline?: boolean | null;
   status: 'draft' | 'published';
   publishedAt?: string | null;
   /**
@@ -475,6 +479,7 @@ export interface ArticlesSelect<T extends boolean = true> {
   heroImage?: T;
   topics?: T;
   sources?: T;
+  headline?: T;
   status?: T;
   publishedAt?: T;
   metaTitle?: T;

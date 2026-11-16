@@ -45,6 +45,17 @@ export function getArticles(opts: { limit?: number; topicSlug?: string } = {}) {
   return apiGet<PayloadList<Article>>(`/articles?${qs}`)
 }
 
+export function getHeadlineArticles(limit = 3) {
+  const qs = [
+    'where[status][equals]=published',
+    'where[headline][equals]=true',
+    'sort=-publishedAt',
+    `limit=${limit}`,
+    'depth=2'
+  ].join('&')
+  return apiGet<PayloadList<Article>>(`/articles?${qs}`)
+}
+
 export function getArticleBySlug(slug: string) {
   const qs = [
     'where[status][equals]=published',

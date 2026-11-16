@@ -93,6 +93,15 @@ export const Articles: CollectionConfig = {
       },
     },
     {
+      name: 'headline',
+      type: 'checkbox',
+      defaultValue: false,
+      admin: {
+        position: 'sidebar',
+        description: 'Feature this article in the homepage headline section.',
+      },
+    },
+    {
       name: 'status',
       type: 'select',
       required: true,
