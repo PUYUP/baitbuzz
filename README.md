@@ -93,3 +93,32 @@ Deploy as **two separate Vercel projects** (monorepo — set *Root Directory* in
 
 - Requires Node.js >= 22.23 (Payload 3.93 supports `^22.23.4 || >=24.22.1`). Vercel's default Node version may need to be set to 22.x or 24.x in Project Settings → General.
 - Serverless + Supabase: the session pooler (port 5432) works with Payload's prepared statements; each function instance manages its own pooled connections.
+
+## White-label: running a second site
+
+The same codebase can power multiple sites with different content and branding. For a fully separate site (own articles, own CMS):
+
+1. **New Supabase project** → get a new `DATABASE_URL` (transaction pooler, port 6543).
+2. **New Vercel backend project** — same repo, Root Directory `backend`:
+   - `PAYLOAD_SECRET` — new random string
+   - `DATABASE_URL` — the new Supabase string
+   - `PAYLOAD_PUBLIC_SERVER_URL` — e.g. `https://cms.site2.com`
+   - `PAYLOAD_ALLOWED_ORIGINS` — comma-separated: `https://site2.com,https://www.site2.com,https://cms.site2.com`
+   - `FRONTEND_REVALIDATE_URL` + `REVALIDATE_SECRET` — for the new frontend
+   - `INGEST_API_KEY` — new key if the extension ingests for this site too
+3. **Run migrations + seed** against the new DB from your machine:
+
+   ```bash
+   cd backend
+   DATABASE_URL="postgresql://..." PAYLOAD_SECRET="..." npm run payload migrate
+   DATABASE_URL="postgresql://..." PAYLOAD_SECRET="..." npm run seed
+   ```
+
+4. **New Vercel frontend project** — same repo, Root Directory `frontend`:
+   - `PUBLIC_PAYLOAD_API` — `https://cms.site2.com/api`
+   - `PUBLIC_SITE_URL` — `https://site2.com`
+   - `PUBLIC_SITE_NAME` / `PUBLIC_SITE_TAGLINE` / `PUBLIC_SITE_DESCRIPTION` — the new brand
+   - `REVALIDATE_SECRET` — same value as the new backend
+5. Custom domains: `site2.com`/`www` → frontend project, `cms.site2.com` → backend project.
+
+Design, layout and features stay identical — only content and identity differ.

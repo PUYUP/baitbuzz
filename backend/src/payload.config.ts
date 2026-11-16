@@ -20,6 +20,21 @@ import { Users } from './collections/Users'
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 
+// Extra origins allowed for CORS/CSRF — set PAYLOAD_ALLOWED_ORIGINS to a
+// comma-separated list when running additional white-label sites.
+const extraOrigins = (process.env.PAYLOAD_ALLOWED_ORIGINS ?? '')
+  .split(',')
+  .map((o) => o.trim())
+  .filter(Boolean)
+
+const cors = [
+  'http://localhost:5173',
+  'https://baitbuzz.com',
+  'https://www.baitbuzz.com',
+  'https://cms.baitbuzz.com',
+  ...extraOrigins,
+]
+
 export default buildConfig({
   admin: {
     user: Users.slug,
@@ -29,18 +44,8 @@ export default buildConfig({
   },
   collections: [Users, Topics, RawPosts, Articles, Pages, Media, ArticleViews],
   endpoints: [ingestRawPosts, trackArticleView, articleViewStats, popularArticles],
-  cors: [
-    'http://localhost:5173',
-    'https://baitbuzz.com',
-    'https://www.baitbuzz.com',
-    'https://cms.baitbuzz.com',
-  ],
-  csrf: [
-    'http://localhost:5173',
-    'https://baitbuzz.com',
-    'https://www.baitbuzz.com',
-    'https://cms.baitbuzz.com',
-  ],
+  cors,
+  csrf: cors,
   db:
     (process.env.DATABASE_URL || '').startsWith('postgres')
       ? postgresAdapter({
