@@ -5,7 +5,7 @@ export const load: PageServerLoad = async () => {
   const [articles, headline, popular, topics] = await Promise.all([
     getArticles({ limit: 30 }),
     getHeadlineArticles(3),
-    getPopularArticles(7, 5),
+    getPopularArticles(7, 3),
     getTopics()
   ])
   return {
