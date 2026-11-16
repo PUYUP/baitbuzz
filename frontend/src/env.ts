@@ -1,6 +1,21 @@
 import { defineEnvVars } from '@sveltejs/kit/env'
 
 export const variables = defineEnvVars({
+  PUBLIC_SITE_NAME: {
+    public: true,
+    schema: (value) => value || '',
+    description: 'Site name shown in logo, titles and metadata'
+  },
+  PUBLIC_SITE_TAGLINE: {
+    public: true,
+    schema: (value) => value || '',
+    description: 'Site tagline shown in the footer'
+  },
+  PUBLIC_SITE_DESCRIPTION: {
+    public: true,
+    schema: (value) => value || '',
+    description: 'Site meta description. Falls back to a built-in default.'
+  },
   PUBLIC_PAYLOAD_API: {
     public: true,
     schema: (value) => value || 'http://localhost:3000/api',

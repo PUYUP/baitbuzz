@@ -18,7 +18,7 @@
 
 <div class="wrap">
   <header class="site">
-    <a class="logo" href="/">b<strong>ai</strong>tbuzz</a>
+    <a class="logo" href="/"><Brand /></a>
     <nav>
       {#each data.topTopics as topic (topic.slug)}
         <a href="/topics/{topic.slug}">#{topic.slug}</a>
