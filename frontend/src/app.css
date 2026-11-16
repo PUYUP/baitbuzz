@@ -275,6 +275,10 @@ footer.site {
   white-space: nowrap;
 }
 
+.latest .section-label {
+  margin-bottom: 0.25rem;
+}
+
 /* Article list */
 article.card {
   padding: 1.5rem 0;
