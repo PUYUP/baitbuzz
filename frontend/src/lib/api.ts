@@ -120,6 +120,14 @@ export function getArticleViewStats(slug: string, days = 30) {
   return apiGet<ArticleViewStats>(`/views/stats?article=${encodeURIComponent(slug)}&days=${days}`)
 }
 
+export type PopularArticle = Article & { views: number }
+
+export function getPopularArticles(days = 7, limit = 5) {
+  return apiGet<{ days: number; articles: PopularArticle[] }>(
+    `/views/popular?days=${days}&limit=${limit}`
+  )
+}
+
 export function trackArticleView(slug: string) {
   return fetch(`${API_URL}/views/track`, {
     method: 'POST',

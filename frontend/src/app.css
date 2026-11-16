@@ -109,11 +109,29 @@ footer.site {
   gap: 0.5rem;
 }
 
-/* Top stories (homepage) */
-.top-stories {
+/* Headlines + popular (homepage) */
+.headlines {
   padding: 0.5rem 0 1.5rem;
   border-bottom: 1px solid var(--line);
   margin-bottom: 0.5rem;
+}
+
+.headlines-grid {
+  display: grid;
+  grid-template-columns: 3fr 2fr;
+  gap: 2.5rem;
+  align-items: start;
+}
+
+.headlines-grid.popular-only {
+  grid-template-columns: 1fr;
+}
+
+@media (max-width: 760px) {
+  .headlines-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
 }
 
 .section-label {
@@ -183,6 +201,60 @@ footer.site {
 .secondary-date {
   color: var(--muted);
   font-size: 0.8rem;
+  white-space: nowrap;
+}
+
+/* Popular this week */
+.popular-col {
+  border-left: 1px solid var(--line);
+  padding-left: 2rem;
+}
+
+@media (max-width: 760px) {
+  .popular-col {
+    border-left: none;
+    border-top: 1px solid var(--line);
+    padding-left: 0;
+    padding-top: 1.25rem;
+  }
+}
+
+.popular-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.popular-list li {
+  display: flex;
+  align-items: baseline;
+  gap: 0.6rem;
+  padding: 0.6rem 0;
+  border-top: 1px solid var(--line);
+}
+
+.popular-rank {
+  color: var(--muted);
+  font-size: 0.8rem;
+  font-variant-numeric: tabular-nums;
+  min-width: 1rem;
+}
+
+.popular-title {
+  color: var(--fg);
+  text-decoration: none;
+  font-size: 0.95rem;
+  line-height: 1.35;
+  flex: 1;
+}
+
+.popular-title:hover {
+  text-decoration: underline;
+}
+
+.popular-views {
+  color: var(--muted);
+  font-size: 0.75rem;
   white-space: nowrap;
 }
 

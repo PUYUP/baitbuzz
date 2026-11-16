@@ -9,7 +9,7 @@ import { buildConfig } from 'payload'
 
 import { ArticleViews } from './collections/ArticleViews'
 import { Articles } from './collections/Articles'
-import { articleViewStats, trackArticleView } from './endpoints/articleViews'
+import { articleViewStats, popularArticles, trackArticleView } from './endpoints/articleViews'
 import { ingestRawPosts } from './endpoints/ingestRawPosts'
 import { Media } from './collections/Media'
 import { Pages } from './collections/Pages'
@@ -28,7 +28,7 @@ export default buildConfig({
     },
   },
   collections: [Users, Topics, RawPosts, Articles, Pages, Media, ArticleViews],
-  endpoints: [ingestRawPosts, trackArticleView, articleViewStats],
+  endpoints: [ingestRawPosts, trackArticleView, articleViewStats, popularArticles],
   cors: [
     'http://localhost:5173',
     'https://baitbuzz.com',

@@ -42,35 +42,56 @@
 {#if data.articles.length === 0 && data.headline.length === 0}
   <p class="empty">No articles published yet.</p>
 {:else}
-  {#if data.headline.length > 0}
-    <section class="top-stories" aria-label="Headlines">
-    <h2 class="section-label">Headlines</h2>
+  {#if data.headline.length > 0 || data.popular.length > 0}
+    <section class="headlines" aria-label="Headlines">
+      <div class="headlines-grid" class:popular-only={data.headline.length === 0}>
+        {#if data.headline.length > 0}
+          <div class="headline-col">
+            <h2 class="section-label">Headlines</h2>
 
-    {#if lead}
-      <article class="lead-story">
-        <h2 class="lead-title"><a href="/articles/{lead.slug}">{lead.title}</a></h2>
-        {#if lead.excerpt}
-          <p class="lead-excerpt">{lead.excerpt}</p>
+            {#if lead}
+              <article class="lead-story">
+                <h2 class="lead-title"><a href="/articles/{lead.slug}">{lead.title}</a></h2>
+                {#if lead.excerpt}
+                  <p class="lead-excerpt">{lead.excerpt}</p>
+                {/if}
+                <div class="meta">
+                  <time datetime={lead.publishedAt ?? undefined}>{formatDate(lead.publishedAt)}</time>
+                  {#each articleTopics(lead) as topic (topic.id)}
+                    <a class="tag" href="/topics/{topic.slug}">#{topic.slug}</a>
+                  {/each}
+                </div>
+              </article>
+            {/if}
+
+            {#if secondary.length > 0}
+              <ol class="secondary-stories">
+                {#each secondary as article (article.id)}
+                  <li>
+                    <a class="secondary-title" href="/articles/{article.slug}">{article.title}</a>
+                    <time class="secondary-date" datetime={article.publishedAt ?? undefined}>{formatDate(article.publishedAt)}</time>
+                  </li>
+                {/each}
+              </ol>
+            {/if}
+          </div>
         {/if}
-        <div class="meta">
-          <time datetime={lead.publishedAt ?? undefined}>{formatDate(lead.publishedAt)}</time>
-          {#each articleTopics(lead) as topic (topic.id)}
-            <a class="tag" href="/topics/{topic.slug}">#{topic.slug}</a>
-          {/each}
-        </div>
-      </article>
-    {/if}
 
-    {#if secondary.length > 0}
-      <ol class="secondary-stories">
-        {#each secondary as article (article.id)}
-          <li>
-            <a class="secondary-title" href="/articles/{article.slug}">{article.title}</a>
-            <time class="secondary-date" datetime={article.publishedAt ?? undefined}>{formatDate(article.publishedAt)}</time>
-          </li>
-        {/each}
-      </ol>
-    {/if}
+        {#if data.popular.length > 0}
+          <aside class="popular-col" aria-label="Popular this week">
+            <h2 class="section-label">Popular this week</h2>
+            <ol class="popular-list">
+              {#each data.popular as article, i (article.id)}
+                <li>
+                  <span class="popular-rank">{i + 1}</span>
+                  <a class="popular-title" href="/articles/{article.slug}">{article.title}</a>
+                  <span class="popular-views">{article.views} {article.views === 1 ? 'view' : 'views'}</span>
+                </li>
+              {/each}
+            </ol>
+          </aside>
+        {/if}
+      </div>
     </section>
   {/if}
 

@@ -99,3 +99,57 @@ export const articleViewStats: Endpoint = {
     })
   },
 }
+
+/**
+ * GET /api/views/popular?days=<n>&limit=<n>
+ * Returns published articles ranked by view count over the last n days
+ * (default 7 = weekly popular, max 3650). Each article gets a `views`
+ * field with its count in the window.
+ */
+export const popularArticles: Endpoint = {
+  path: '/views/popular',
+  method: 'get',
+  handler: async (req) => {
+    const url = new URL(req.url!)
+    const days = Math.min(Math.max(Number(url.searchParams.get('days') ?? 7) || 7, 1), 3650)
+    const limit = Math.min(Math.max(Number(url.searchParams.get('limit') ?? 5) || 5, 1), 20)
+    const since = new Date(Date.now() - days * 86_400_000).toISOString()
+
+    const views = await req.payload.find({
+      collection: 'article-views',
+      where: { viewedAt: { greater_than: since } },
+      depth: 0,
+      pagination: false,
+      limit: 0,
+    })
+
+    const counts = new Map<number, number>()
+    for (const v of views.docs) {
+      const article = v.article as number | string | { id: number | string }
+      const id = typeof article === 'object' ? Number(article.id) : Number(article)
+      if (Number.isFinite(id)) counts.set(id, (counts.get(id) ?? 0) + 1)
+    }
+
+    const rankedIds = [...counts.entries()]
+      .sort((a, b) => b[1] - a[1])
+      .slice(0, limit)
+      .map(([id]) => id)
+    if (rankedIds.length === 0) return json({ days, articles: [] })
+
+    const articles = await req.payload.find({
+      collection: 'articles',
+      where: {
+        and: [{ id: { in: rankedIds } }, { status: { equals: 'published' } }],
+      },
+      depth: 2,
+      limit: rankedIds.length,
+    })
+
+    const order = new Map(rankedIds.map((id, i) => [id, i]))
+    const docs = articles.docs
+      .sort((a, b) => (order.get(Number(a.id)) ?? 0) - (order.get(Number(b.id)) ?? 0))
+      .map((a) => ({ ...a, views: counts.get(Number(a.id)) ?? 0 }))
+
+    return json({ days, articles: docs })
+  },
+}
