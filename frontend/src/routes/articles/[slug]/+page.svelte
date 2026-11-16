@@ -134,6 +134,32 @@
       {#if article.excerpt}
         <p class="excerpt">{article.excerpt}</p>
       {/if}
+      <div class="meta">
+        <time datetime={article.publishedAt ?? undefined}>{formatDate(article.publishedAt)}</time>
+        <span>· {readingTime(article.body)} min read</span>
+        {#if viewCount !== null}
+          <span>· {viewCount} {viewCount === 1 ? 'view' : 'views'}</span>
+        {/if}
+        {#each topics as topic (topic.id)}
+          <a class="tag" href="/topics/{topic.slug}">#{topic.slug}</a>
+        {/each}
+      </div>
+
+      <div class="share" aria-label="Share this article">
+        <span class="share-label">Share:</span>
+        {#each shareLinks as link (link.name)}
+          <a class="share-icon" href={link.href} target="_blank" rel="noopener noreferrer" aria-label="Share on {link.name}" title={link.name}>
+            <svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor" aria-hidden="true"><path d={link.icon} /></svg>
+          </a>
+        {/each}
+        <button class="share-icon share-copy" type="button" onclick={copyLink} aria-label="Copy link" title={copied ? 'Copied' : 'Copy link'}>
+          {#if copied}
+            <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5" /></svg>
+          {:else}
+            <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" /><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" /></svg>
+          {/if}
+        </button>
+      </div>
     </div>
     {#if data.latest.length > 0}
       <aside class="latest-articles" aria-label="Latest articles">
@@ -151,32 +177,6 @@
         </ul>
       </aside>
     {/if}
-  </div>
-  <div class="meta">
-    <time datetime={article.publishedAt ?? undefined}>{formatDate(article.publishedAt)}</time>
-    <span>· {readingTime(article.body)} min read</span>
-    {#if viewCount !== null}
-      <span>· {viewCount} {viewCount === 1 ? 'view' : 'views'}</span>
-    {/if}
-    {#each topics as topic (topic.id)}
-      <a class="tag" href="/topics/{topic.slug}">#{topic.slug}</a>
-    {/each}
-  </div>
-
-  <div class="share" aria-label="Share this article">
-    <span class="share-label">Share:</span>
-    {#each shareLinks as link (link.name)}
-      <a class="share-icon" href={link.href} target="_blank" rel="noopener noreferrer" aria-label="Share on {link.name}" title={link.name}>
-        <svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor" aria-hidden="true"><path d={link.icon} /></svg>
-      </a>
-    {/each}
-    <button class="share-icon share-copy" type="button" onclick={copyLink} aria-label="Copy link" title={copied ? 'Copied' : 'Copy link'}>
-      {#if copied}
-        <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5" /></svg>
-      {:else}
-        <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" /><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" /></svg>
-      {/if}
-    </button>
   </div>
 
   {#if heroUrl}
