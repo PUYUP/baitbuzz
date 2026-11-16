@@ -168,10 +168,16 @@ footer.site {
 
 .lead-hero {
   width: 100%;
-  aspect-ratio: 4 / 3;
+  aspect-ratio: 16 / 9;
   object-fit: cover;
   border-radius: 8px;
   margin: 0 0 0.75rem;
+}
+
+@media (max-width: 760px) {
+  .lead-hero {
+    aspect-ratio: 4 / 3;
+  }
 }
 
 .lead-excerpt {
