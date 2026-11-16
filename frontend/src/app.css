@@ -166,6 +166,12 @@ footer.site {
   text-decoration: underline;
 }
 
+.lead-hero {
+  width: 100%;
+  border-radius: 8px;
+  margin: 0 0 0.75rem;
+}
+
 .lead-excerpt {
   font-family: Georgia, 'Times New Roman', serif;
   font-size: 1.15rem;

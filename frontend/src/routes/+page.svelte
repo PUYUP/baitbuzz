@@ -2,7 +2,7 @@
   import ArticleCard from '#lib/ArticleCard.svelte'
   import { articleTopics, formatDate } from '#lib/format'
   import { site } from '#lib/site'
-  import { jsonLdScript } from '#lib/seo'
+  import { jsonLdScript, absoluteUrl } from '#lib/seo'
   import type { PageData } from './$types'
 
   let { data }: { data: PageData } = $props()
@@ -11,6 +11,12 @@
   const secondary = $derived(data.headline.slice(1))
   const headlineIds = $derived(new Set(data.headline.map((a) => a.id)))
   const rest = $derived(data.articles.filter((a) => !headlineIds.has(a.id)))
+  const leadHasImage = $derived(
+    typeof lead?.heroImage === 'object' && lead.heroImage !== null && Boolean(lead.heroImage.url)
+  )
+  const leadHeroUrl = $derived(
+    leadHasImage ? absoluteUrl((lead!.heroImage as { url: string }).url, site.url) : null
+  )
 
   const title = `${site.name} — ${site.tagline}`
 
@@ -55,7 +61,9 @@
             {#if lead}
               <article class="lead-story">
                 <h2 class="lead-title"><a href="/articles/{lead.slug}">{lead.title}</a></h2>
-                {#if lead.excerpt}
+                {#if leadHeroUrl}
+                  <img class="lead-hero" src={leadHeroUrl} alt={lead.title} loading="lazy" />
+                {:else if lead.excerpt}
                   <p class="lead-excerpt">{lead.excerpt}</p>
                 {/if}
                 <div class="meta">
