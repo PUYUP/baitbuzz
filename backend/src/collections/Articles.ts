@@ -28,7 +28,7 @@ export const Articles: CollectionConfig = {
   slug: 'articles',
   admin: {
     useAsTitle: 'title',
-    defaultColumns: ['title', 'status', 'publishedAt', 'topics'],
+    defaultColumns: ['title', 'headline', 'status', 'publishedAt', 'topics'],
     preview: (doc) => `/articles/${doc?.slug}`,
   },
   access: {
