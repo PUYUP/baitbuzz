@@ -189,4 +189,18 @@
       </ul>
     </section>
   {/if}
+
+  {#if data.related.length > 0}
+    <section class="related" aria-label="Related articles">
+      <h2>Related articles</h2>
+      <ul>
+        {#each data.related as rel (rel.id)}
+          <li>
+            <a class="related-title" href="/articles/{rel.slug}">{rel.title}</a>
+            <time class="related-date" datetime={rel.publishedAt ?? undefined}>{formatDate(rel.publishedAt)}</time>
+          </li>
+        {/each}
+      </ul>
+    </section>
+  {/if}
 </article>
