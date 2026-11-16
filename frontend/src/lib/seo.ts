@@ -3,6 +3,7 @@ export function jsonLdScript(data: Record<string, unknown>): string {
 }
 
 export function absoluteUrl(path: string, base: string): string {
+  if (/^https?:\/\//i.test(path) || path.startsWith('//')) return path
   return `${base}${path.startsWith('/') ? path : `/${path}`}`
 }
 
