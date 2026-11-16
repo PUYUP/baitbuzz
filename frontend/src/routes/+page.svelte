@@ -60,10 +60,11 @@
 
             {#if lead}
               <article class="lead-story">
-                <h2 class="lead-title"><a href="/articles/{lead.slug}">{lead.title}</a></h2>
                 {#if leadHeroUrl}
                   <img class="lead-hero" src={leadHeroUrl} alt={lead.title} loading="lazy" />
-                {:else if lead.excerpt}
+                {/if}
+                <h2 class="lead-title"><a href="/articles/{lead.slug}">{lead.title}</a></h2>
+                {#if !leadHeroUrl && lead.excerpt}
                   <p class="lead-excerpt">{lead.excerpt}</p>
                 {/if}
                 <div class="meta">
