@@ -109,6 +109,83 @@ footer.site {
   gap: 0.5rem;
 }
 
+/* Top stories (homepage) */
+.top-stories {
+  padding: 0.5rem 0 1.5rem;
+  border-bottom: 1px solid var(--line);
+  margin-bottom: 0.5rem;
+}
+
+.section-label {
+  font-size: 0.78rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  margin: 0 0 1rem;
+}
+
+.lead-story {
+  padding-bottom: 1.25rem;
+}
+
+.lead-title {
+  margin: 0 0 0.5rem;
+  font-size: 1.9rem;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+
+.lead-title a {
+  color: var(--fg);
+  text-decoration: none;
+}
+
+.lead-title a:hover {
+  text-decoration: underline;
+}
+
+.lead-excerpt {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 1.15rem;
+  line-height: 1.5;
+  color: var(--muted);
+  margin: 0 0 0.75rem;
+  max-width: 40rem;
+}
+
+.secondary-stories {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.secondary-stories li {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.7rem 0;
+  border-top: 1px solid var(--line);
+}
+
+.secondary-title {
+  color: var(--fg);
+  text-decoration: none;
+  font-size: 1.02rem;
+  font-weight: 500;
+}
+
+.secondary-title:hover {
+  text-decoration: underline;
+}
+
+.secondary-date {
+  color: var(--muted);
+  font-size: 0.8rem;
+  white-space: nowrap;
+}
+
 /* Article list */
 article.card {
   padding: 1.5rem 0;
